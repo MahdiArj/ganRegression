@@ -4,7 +4,7 @@ import numpy as np
 from keras.layers import Input
 from keras.models import Model
 from tensorflow.keras.optimizers import Adam, SGD
-from keras import utils
+from tensorflow.keras import utils
 from network import build_discriminator, build_generator
 
 """
