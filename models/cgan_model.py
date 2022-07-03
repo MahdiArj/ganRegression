@@ -82,7 +82,7 @@ class CGAN():
             loss=['binary_crossentropy'],
             optimizer=self.optimizer_disc,
             metrics=['accuracy'])
-        plot_model(
+        utils.plot_model(
             to_file="model_disc.png",
             show_shapes=True,
             show_dtype=False,
