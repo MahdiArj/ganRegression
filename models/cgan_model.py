@@ -83,6 +83,7 @@ class CGAN():
             optimizer=self.optimizer_disc,
             metrics=['accuracy'])
         utils.plot_model(
+            self.discriminator,
             to_file="model_disc.png",
             show_shapes=True,
             show_dtype=False,
@@ -97,6 +98,7 @@ class CGAN():
         # Build the generator
         self.generator = build_generator(self)
         utils.plot_model(
+            self.generator,
             to_file="model_gen.png",
             show_shapes=True,
             show_dtype=False,
