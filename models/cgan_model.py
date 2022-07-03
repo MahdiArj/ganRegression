@@ -3,7 +3,8 @@ from __future__ import print_function, division
 import numpy as np
 from keras.layers import Input
 from keras.models import Model
-from keras.optimizers import Adam, SGD
+from tensorflow.keras.optimizers import Adam, SGD
+from keras.utils import plot_model
 from network import build_discriminator, build_generator
 
 """
@@ -81,7 +82,18 @@ class CGAN():
             loss=['binary_crossentropy'],
             optimizer=self.optimizer_disc,
             metrics=['accuracy'])
-
+        plot_model(
+            to_file="model_disc.png",
+            show_shapes=True,
+            show_dtype=False,
+            show_layer_names=True,
+            rankdir="TB",
+            expand_nested=False,
+            dpi=300,
+            layer_range=None,
+            show_layer_activations=True,
+        )
+        
         # Build the generator
         self.generator = build_generator(self)
 
