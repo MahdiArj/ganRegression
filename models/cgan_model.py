@@ -96,7 +96,17 @@ class CGAN():
         
         # Build the generator
         self.generator = build_generator(self)
-
+        plot_model(
+            to_file="model_gen.png",
+            show_shapes=True,
+            show_dtype=False,
+            show_layer_names=True,
+            rankdir="TB",
+            expand_nested=False,
+            dpi=300,
+            layer_range=None,
+            show_layer_activations=True,
+        )
         # The generator takes noise and the target label as input
         # and generates the corresponding digit of that label
         noise = Input(shape=(self.z_input_size,))
