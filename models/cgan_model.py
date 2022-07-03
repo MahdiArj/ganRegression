@@ -4,7 +4,7 @@ import numpy as np
 from keras.layers import Input
 from keras.models import Model
 from tensorflow.keras.optimizers import Adam, SGD
-from keras.utils import plot_model
+from keras import utils
 from network import build_discriminator, build_generator
 
 """
@@ -96,7 +96,7 @@ class CGAN():
         
         # Build the generator
         self.generator = build_generator(self)
-        plot_model(
+        utils.plot_model(
             to_file="model_gen.png",
             show_shapes=True,
             show_dtype=False,
