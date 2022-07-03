@@ -84,7 +84,7 @@ class CGAN():
             metrics=['accuracy'])
         utils.plot_model(
             self.discriminator,
-            to_file="/content/gdrive/My Model/Colab Notebooks/cGAN/model_disc.png",
+            to_file="/content/gdrive/My Drive/Colab Notebooks/cGAN/model_disc.png",
             show_shapes=True,
             show_dtype=False,
             show_layer_names=True,
@@ -99,7 +99,7 @@ class CGAN():
         self.generator = build_generator(self)
         utils.plot_model(
             self.generator,
-            to_file="/content/gdrive/My Model/Colab Notebooks/cGAN/model_gen.png",
+            to_file="/content/gdrive/My Drive/Colab Notebooks/cGAN/model_gen.png",
             show_shapes=True,
             show_dtype=False,
             show_layer_names=True,
