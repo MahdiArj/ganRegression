@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 
@@ -108,6 +109,12 @@ def get_dataset(n_instance=1000, scenario="linear", seed=1):
         X_train = X_train.reshape(-1, 1)
         X_test = X_test.reshape(-1, 1)
         X_valid = X_valid.reshape(-1, 1)
+        
+    elif scenartio == "UAM":
+        dataset = pd.read_excel("/content/gdrive/My Drive/Colab Notebooks/cGAN/data.xlsx")
+        X_train, y_train = np.array(dataset.iloc[:800 ,:6]), np.array(dataset.iloc[:800 ,6])
+        X_test, y_test = np.array(dataset.iloc[800:1100 ,:6]), np.array(dataset.iloc[800:1100 ,6])
+        X_valid, y_valid = np.array(dataset.iloc[1100: ,:6]), np.array(dataset.iloc[1100: ,6])
 
     elif scenario == "ailerons":
         scaling = 1000
