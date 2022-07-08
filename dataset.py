@@ -112,10 +112,11 @@ def get_dataset(n_instance=1000, scenario="linear", seed=1):
         
     elif scenartio == "UAM":
         dataset = pd.read_excel("/content/gdrive/My Drive/Colab Notebooks/cGAN/data.xlsx")
-        X_train, y_train = np.array(dataset.iloc[:800 ,:6]), np.array(dataset.iloc[:800 ,6])
-        X_test, y_test = np.array(dataset.iloc[800:1100 ,:6]), np.array(dataset.iloc[800:1100 ,6])
-        X_valid, y_valid = np.array(dataset.iloc[1100: ,:6]), np.array(dataset.iloc[1100: ,6])
-
+        X_train_full, y_train_full = np.array(dataset.iloc[:1100 ,:6]), np.array(dataset.iloc[:1100 ,6])
+        X_test, y_test = np.array(dataset.iloc[1100: ,:6]), np.array(dataset.iloc[1100: ,6])
+        
+        X_train, X_valid, y_train, y_valid = train_test_split(X_train_full, y_train_full, random_state=seed)
+        
     elif scenario == "ailerons":
         scaling = 1000
 
