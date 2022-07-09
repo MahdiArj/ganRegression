@@ -26,7 +26,7 @@ class CGAN():
             self.optimizer_disc = SGD(exp_config.model.lr_disc, decay=exp_config.model.dec_disc)
         self.activation = exp_config.model.activation
         self.seed = exp_config.model.random_seed
-        self.scenario = exp_config.dataset.scenario
+        self.scenario = "UAM"
 
         if self.scenario == "CA-housing":
             self.x_input_size = 8
