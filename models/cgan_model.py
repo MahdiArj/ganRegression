@@ -64,6 +64,11 @@ class CGAN():
             self.y_input_size = 1
             self.z_input_size = exp_config.model.z_input_size
             self.architecture = 3
+        elif self.scenario == "UAM":
+            self.x_input_size = 6
+            self.y_input_size = 1
+            self.z_input_size = exp_config.model.z_input_size
+            self.architecture = 3
         else:
             self.x_input_size = 1
             self.y_input_size = 1
@@ -129,6 +134,18 @@ class CGAN():
         self.combined.compile(
             loss=['binary_crossentropy'],
             optimizer=self.optimizer_gen)
+        utils.plot_model(
+            self.combined,
+            to_file="/content/gdrive/My Drive/Colab Notebooks/cGAN/model_comb.png",
+            show_shapes=True,
+            show_dtype=False,
+            show_layer_names=True,
+            rankdir="TB",
+            expand_nested=False,
+            dpi=300,
+            layer_range=None,
+            show_layer_activations=True,
+        )
 
     def train(self, xtrain, ytrain, epochs, batch_size=128, verbose=True):
         # Adversarial ground truths
