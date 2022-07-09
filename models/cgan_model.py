@@ -27,56 +27,11 @@ class CGAN():
         self.activation = exp_config.model.activation
         self.seed = exp_config.model.random_seed
         self.scenario = "UAM"
-
-        if self.scenario == "CA-housing":
-            self.x_input_size = 8
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 3
-        elif self.scenario == "ailerons":
-            self.x_input_size = 40
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 3
-        elif self.scenario == "comp-activ":
-            self.x_input_size = 21
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 5
-        elif self.scenario == "pumadyn":
-            self.x_input_size = 32
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 4
-        elif self.scenario == "bank":
-            self.x_input_size = 32
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 4
-            self.architecture = 3
-        elif self.scenario == "census-house":
-            self.x_input_size = 16
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 3
-        elif self.scenario == "abalone":
-            self.x_input_size = 7
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 3
-        elif self.scenario == "UAM":
-            self.x_input_size = 6
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            self.architecture = 3
-        else:
-            self.x_input_size = 1
-            self.y_input_size = 1
-            self.z_input_size = exp_config.model.z_input_size
-            if self.scenario == "linear" or self.scenario == "sinus":
-                self.architecture = 1
-            else:
-                self.architecture = 2
+        
+        self.x_input_size = 6
+        self.y_input_size = 1
+        self.z_input_size = exp_config.model.z_input_size
+        self.architecture = 3
 
         if exp_config.model.architecture is not None:
             self.architecture = exp_config.model.architecture
@@ -133,7 +88,9 @@ class CGAN():
         self.combined = Model([noise, x], validity)
         self.combined.compile(
             loss=['binary_crossentropy'],
-            optimizer=self.optimizer_gen)
+            optimizer=self.optimizer_gen,
+            run_eagerly=True)
+        
         utils.plot_model(
             self.combined,
             to_file="/content/gdrive/My Drive/Colab Notebooks/cGAN/model_comb.png",
