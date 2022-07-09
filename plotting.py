@@ -24,7 +24,7 @@ def plots(d_loss_err, d_loss_true, d_loss_fake, g_loss_err, g_pred, g_true, fig_
     plt.xlabel("Epoch")
     plt.title("Loss")
     if save_fig:
-        plt.savefig(f"{fig_dir}/gan_loss.png")
+        plt.savefig(f"{fig_dir}/gan_loss.png", dpi=600)
     plt.show()
 
     plt.plot(g_pred, label="Average Generator Prediction")
@@ -34,7 +34,7 @@ def plots(d_loss_err, d_loss_true, d_loss_fake, g_loss_err, g_pred, g_true, fig_
     plt.title("Average Prediction")
 
     if save_fig:
-        plt.savefig(f"{fig_dir}/{basename(fig_dir)}gan_ave_pred.png")
+        plt.savefig(f"{fig_dir}/{basename(fig_dir)}gan_ave_pred.png", dpi=600)
     plt.show()
 
 
