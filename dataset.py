@@ -58,133 +58,13 @@ def get_dataset(n_instance=1000, scenario="linear", seed=1):
     """
     Create regression data: y = x(1 + f(z)) + g(z)
     """
-
-    if scenario == "linear":
-        X_train, y_train = gen_data_linear(n_instance)
-        X_test, y_test = gen_data_linear(n_instance)
-        X_valid, y_valid = gen_data_linear(n_instance)
-
-    elif scenario == "sinus":
-        noise = 0.4
-        X_full = np.linspace(start=-4, stop=4, num=3 * n_instance).reshape(-1, 1)
-        np.random.shuffle(X_full)
-
-        X_train = X_full[:n_instance]
-        y_train = np.sin(X_train) + noise * np.random.randn(*X_train.shape)
-
-        X_test = X_full[n_instance:2 * n_instance]
-        y_test = np.sin(X_test) + noise * np.random.randn(*X_test.shape)
-
-        X_valid = X_full[2 * n_instance:]
-        y_valid = np.sin(X_valid) + noise * np.random.randn(*X_valid.shape)
-
-    elif scenario == "heteroscedastic":
-        X_train, y_train = gen_data_heteroscedastic(n_instance)
-        X_test, y_test = gen_data_heteroscedastic(n_instance)
-        X_valid, y_valid = gen_data_heteroscedastic(n_instance)
-
-    elif scenario == "multi-modal":
-        X_train, y_train = gen_data_multimodal(n_instance)
-        X_test, y_test = gen_data_multimodal(n_instance)
-        X_valid, y_valid = gen_data_multimodal(n_instance)
-
-    elif scenario == "exp":
-        X_train, y_train = gen_data_exp(n_instance)
-        X_test, y_test = gen_data_exp(n_instance)
-        X_valid, y_valid = gen_data_exp(n_instance)
-
-    elif scenario == "CA-housing":
-        housing = fetch_california_housing()
-
-        X_train_full, X_test, y_train_full, y_test = train_test_split(housing.data, housing.target, random_state=seed)
-        X_train, X_valid, y_train, y_valid = train_test_split(X_train_full, y_train_full, random_state=seed)
-
-    elif scenario == "CA-housing-single":
-        housing = fetch_california_housing()
-
-        X_train_full, X_test, y_train_full, y_test = train_test_split(housing.data[:, 0], housing.target,
-                                                                      random_state=seed)
-        X_train, X_valid, y_train, y_valid = train_test_split(X_train_full, y_train_full, random_state=seed)
-
-        X_train = X_train.reshape(-1, 1)
-        X_test = X_test.reshape(-1, 1)
-        X_valid = X_valid.reshape(-1, 1)
         
-    elif scenartio == "UAM":
+    if scenartio == "UAM":
         dataset = pd.read_excel("/content/gdrive/My Drive/Colab Notebooks/cGAN/data.xlsx")
         X_train_full, y_train_full = np.array(dataset.iloc[:1100 ,:6]), np.array(dataset.iloc[:1100 ,6])
         X_test, y_test = np.array(dataset.iloc[1100: ,:6]), np.array(dataset.iloc[1100: ,6])
         
         X_train, X_valid, y_train, y_valid = train_test_split(X_train_full, y_train_full, random_state=seed)
-        
-    elif scenario == "ailerons":
-        scaling = 1000
-
-        my_data_train = np.genfromtxt(f"../data/Ailerons/ailerons.data", delimiter=',')
-        X_train = my_data_train[:, 0:40]
-        y_train = my_data_train[:, 40] * scaling
-
-        my_data_test = np.genfromtxt(f"../data/Ailerons/ailerons.test", delimiter=',')
-        X_test_full = my_data_test[:, 0:40]
-        y_test_full = my_data_test[:, 40] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
-        
-    elif scenario == "comp-activ":
-        scaling = 1
-
-        my_data_train = np.genfromtxt(f"../data/comp-activ/Prototask.data", delimiter=' ')
-        X_train = my_data_train[0:4096, 0:21]
-        y_train = my_data_train[0:4096, 21] * scaling
-
-        X_test_full = my_data_train[4096:8192, 0:21]
-        y_test_full = my_data_train[4096:8192, 21] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
-
-    elif scenario == "pumadyn":
-        scaling = 1000
-        my_data_train = np.genfromtxt(f"../data/pumadyn-32nm/Prototask.data", delimiter=' ')
-        X_train = my_data_train[0:4096, 0:32]
-        y_train = my_data_train[0:4096, 32] * scaling
-
-        X_test_full = my_data_train[4096:8192, 0:32]
-        y_test_full = my_data_train[4096:8192, 32] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
-
-    elif scenario == "bank":
-        scaling = 10
-        my_data_train = np.genfromtxt(f"../data/bank-32nm/Prototask.data", delimiter=' ')
-        X_train = my_data_train[0:4096, 0:32]
-        y_train = my_data_train[0:4096, 32] * scaling
-
-        X_test_full = my_data_train[4096:8192, 0:32]
-        y_test_full = my_data_train[4096:8192, 32] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
-
-    elif scenario == "census-house":
-        scaling = 10**-5
-        my_data_train = np.genfromtxt(f"../data/census-house/house-price-16H/Prototask.data", delimiter=' ')
-        X_train = my_data_train[0:11392, 0:16]
-        y_train = my_data_train[0:11392, 16] * scaling
-
-        X_test_full = my_data_train[11392:22784, 0:16]
-        y_test_full = my_data_train[11392:22784, 16] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
-
-    elif scenario == "abalone":
-        scaling = 1
-        my_data_train = np.genfromtxt(f"../data/abalone/Prototask.data", delimiter=' ')
-        X_train = my_data_train[0:2089, 1:8]
-        y_train = my_data_train[0:2089, 8] * scaling
-
-        X_test_full = my_data_train[2089:4177, 1:8]
-        y_test_full = my_data_train[2089:4177, 8] * scaling
-
-        X_test, X_valid, y_test, y_valid = train_test_split(X_test_full, y_test_full, random_state=seed)
 
     else:
         raise NotImplementedError("Dataset does not exist")
