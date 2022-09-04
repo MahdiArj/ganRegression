@@ -153,9 +153,8 @@ class CGAN():
             ypred = self.predict(xtrain)
             genPred[epoch] = np.average(ypred)
             genReal[epoch] = np.average(ytrain)
-            self.generator.save('model-cgan.h5')
 
-        return dLossErr, dLossReal, dLossFake, gLossErr, genPred, genReal
+        return dLossErr, dLossReal, dLossFake, gLossErr, genPred, genReal, self.generator.save('model-cgan.h5')
     
     def save(self):
         self.generator.save('model-cgan.h5')
