@@ -153,6 +153,8 @@ class CGAN():
             ypred = self.predict(xtrain)
             genPred[epoch] = np.average(ypred)
             genReal[epoch] = np.average(ytrain)
+       
+        self.generator.save('model-cgan.h5')
 
         return dLossErr, dLossReal, dLossFake, gLossErr, genPred, genReal
     
@@ -162,7 +164,7 @@ class CGAN():
     def predict(self, xtest):
         noise = np.random.normal(0, 1, (xtest.shape[0], self.z_input_size))
         ypred = self.generator.predict([noise, xtest])
-        return ypred, self.generator()
+        return ypred
 
     def sample(self, xtest, n_samples):
         y_samples_gan = self.predict(xtest)
