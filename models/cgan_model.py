@@ -157,7 +157,7 @@ class CGAN():
         return dLossErr, dLossReal, dLossFake, gLossErr, genPred, genReal
     
     def save(self):
-        return self.generator.save('model-cgan.h5')
+        self.generator.save('model-cgan.h5')
     
     def predict(self, xtest):
         noise = np.random.normal(0, 1, (xtest.shape[0], self.z_input_size))
