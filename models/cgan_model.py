@@ -162,8 +162,7 @@ class CGAN():
     def predict(self, xtest):
         noise = np.random.normal(0, 1, (xtest.shape[0], self.z_input_size))
         ypred = self.generator.predict([noise, xtest])
-        self.generator.save('model-cgan.h5')
-        return ypred
+        return ypred, self.generator()
 
     def sample(self, xtest, n_samples):
         y_samples_gan = self.predict(xtest)
