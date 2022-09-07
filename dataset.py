@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 
 def gen_data_linear(n_instance):
@@ -61,6 +62,7 @@ def get_dataset(n_instance=1000, scenario="linear", seed=1):
         
     if scenario == "UAM":
         dataset = pd.read_excel("/content/gdrive/My Drive/Colab Notebooks/cGAN/data.xlsx")
+        dataset = shuffle(dataset)
         X_train_full, y_train_full = np.array(dataset.iloc[:900 ,:6]), np.array(dataset.iloc[:900 ,6])
         X_test, y_test = np.array(dataset.iloc[900: ,:6]), np.array(dataset.iloc[900: ,6])
         
